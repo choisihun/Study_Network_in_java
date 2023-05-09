@@ -1,3 +1,5 @@
+package exam01;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
