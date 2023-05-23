@@ -33,7 +33,7 @@ public class ChatServer {
     }
 
     public void addSocketClient(SocketClient socketClient) {
-        String key = socketClient.chatName  + "@" + socketClient.clientnlp;
+        String key = socketClient.chatName  + "@" + socketClient.clientlp;
         chatRoom.put(key, socketClient);
         System.out.println("입장"+key);
         System.out.println("현재채팅자 수" + chatRoom.size());
@@ -41,18 +41,18 @@ public class ChatServer {
     }
 
     public void removeSocketClient(SocketClient socketClient) {
-        String key = socketClient.chatName + "@" + socketClient.clientnlp;
+        String key = socketClient.chatName + "@" + socketClient.clientlp;
         chatRoom.remove(key);
         System.out.println("나감" + key);
         System.out.println("현재채팅자 수" + chatRoom.size()+"\n");
     }
     public void sendToAll(SocketClient sender, String message) {
         JSONObject root = new JSONObject();
-        root.put("clientlp", sender.clientnlp);
+        root.put("clientlp", sender.clientlp);
         root.put("chatName", sender.chatName);
         root.put("message", message);
         String json = root.toString();
-        Collections<SocketClient> socketClients = chatRoom.values();
+        Collection <SocketClient> socketClients = chatRoom.values();
         for(SocketClient sc:socketClients) {
             if(sc==sender) continue;
             sc.send(json);
@@ -64,7 +64,9 @@ public class ChatServer {
             threadPool.shutdownNow();
             chatRoom.values().stream().forEach(sc->sc.close());
             System.out.println("서버:  종료됨");
-        } catch (IOException e) {}
+        } catch (IOException e) {
+
+        }
     }
 
     public static void main(String[] args) {

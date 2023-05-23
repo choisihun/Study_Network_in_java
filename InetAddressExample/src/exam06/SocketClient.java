@@ -14,10 +14,11 @@ public class SocketClient {
     Socket socket;
     DataInputStream dis;
     DataOutputStream dos;
-    String clientnlp;
+    String clientlp;
     String chatName;
 
     public SocketClient(ChatServer chatServer, Socket socket) {
+
         try {
             this.chatServer = chatServer;
             this.socket = socket;
@@ -52,8 +53,6 @@ public class SocketClient {
 
                 }
             } catch (IOException e) {
-                chatServer.sendToAll();
-                chatServer.removeSocketClient(this);
             }
         });
     }
